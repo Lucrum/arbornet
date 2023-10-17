@@ -1,0 +1,14 @@
+<h1><%= @profile.username %></h1>
+
+<% if @profile.posts.any? %>
+  <h3><%= @profile.username %>'s Posts</h3>
+  <ul>
+    <% @profile.posts.each do |post| %>
+      <li>
+        <%= post.content %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nothing here to see... yet!</p>
+<% end %>

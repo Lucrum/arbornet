@@ -1,0 +1,20 @@
+<h1>Arbornet</h1>
+
+<%= link_to "Your profile", profile_path(current_user.username) %>
+
+<h2>Posts</h2>
+
+<% if @posts.any? %>
+  <ul>
+    <% @posts.each do |post|%>
+      <li>
+        <%= post.creator.username %><br>
+        <%= post.content %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p><%='Nothing to see here... yet!'%></p>
+<% end %>
+
+<%= link_to "Create a post", new_post_path %>

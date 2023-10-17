@@ -1,0 +1,7 @@
+<h1>Create a post</h1>
+
+<%= form_with model: @post do |form| %>
+  <%= form.label :content %>
+  <%= form.text_area :content %>
+  <%= form.submit %>
+<% end %>
