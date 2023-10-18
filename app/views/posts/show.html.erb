@@ -1,5 +1,6 @@
-<h1>Post by <%= link_to @post.creator.username, profile_path(@post.creator.username) %></h1>
+<% creator_username = @post.creator.username %>
+<h1>Post by <%= link_to creator_username, profile_path(creator_username) %></h1>
 
 <p><%= @post.content %></p>
 
-<%= link_to "Homepage", root_path %>
+<%= link_to "Back", :back %>

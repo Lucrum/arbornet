@@ -2,13 +2,21 @@
 
 <%= link_to "Homepage", root_path %>
 
+<% if @profile != current_user %>
+  Send friend request!
+<% end %>
+
+<% if @profile == current_user %>
+  
+<% end %>
+
 <div class="user-posts">
   <% if @profile.posts.any? %>
     <h3><%= @profile.username %>'s posts</h3>
     <ul>
       <% @profile.posts.each do |post| %>
         <li>
-          <%= post.content %>
+          <%= link_to post.content, post %>
         </li>
       <% end %>
     </ul>
@@ -18,12 +26,12 @@
 </div>
 
 <div class="user-friends">
-  <% if @profile.friendships.any? %>
+  <% if @friends.any? %>
     <h3><%= @profile.username %>'s friends</h3>
     <ul>
-      <% @profile.friends.each do |friend| %>
+      <% @friends.each do |friend| %>
         <li>
-          <%= friend.username %>
+          <%= link_to friendship.username, friend.username %>
         </li>
       <% end %>
     </ul>

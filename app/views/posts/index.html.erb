@@ -1,8 +1,8 @@
-<h1>Arbornet</h1>
-
-<%= link_to "Your profile", profile_path(username: current_user.username) %>
+<%= render "shared/navbar" %>
 
 <h2>Posts</h2>
+
+<%= link_to "Create a post", new_post_path %>
 
 <% if @posts.any? %>
   <ul>
@@ -28,5 +28,3 @@
 <% else %>
   <p>Nothing to see here... yet!</p>
 <% end %>
-
-<%= link_to "Create a post", new_post_path %>
