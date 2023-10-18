@@ -1,14 +1,31 @@
 <h1><%= @profile.username %></h1>
 
-<% if @profile.posts.any? %>
-  <h3><%= @profile.username %>'s Posts</h3>
-  <ul>
-    <% @profile.posts.each do |post| %>
-      <li>
-        <%= post.content %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Nothing here to see... yet!</p>
-<% end %>
+<%= link_to "Homepage", root_path %>
+
+<div class="user-posts">
+  <% if @profile.posts.any? %>
+    <h3><%= @profile.username %>'s posts</h3>
+    <ul>
+      <% @profile.posts.each do |post| %>
+        <li>
+          <%= post.content %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Nothing here to see... yet!</p>
+  <% end %>
+</div>
+
+<div class="user-friends">
+  <% if @profile.friendships.any? %>
+    <h3><%= @profile.username %>'s friends</h3>
+    <ul>
+      <% @profile.friends.each do |friend| %>
+        <li>
+          <%= friend.username %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

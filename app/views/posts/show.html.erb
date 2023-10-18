@@ -1,3 +1,5 @@
-<h1>Post by <%= @post.creator.username %></h1>
+<h1>Post by <%= link_to @post.creator.username, profile_path(@post.creator.username) %></h1>
 
 <p><%= @post.content %></p>
+
+<%= link_to "Homepage", root_path %>

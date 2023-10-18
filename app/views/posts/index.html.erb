@@ -1,6 +1,6 @@
 <h1>Arbornet</h1>
 
-<%= link_to "Your profile", profile_path(current_user.username) %>
+<%= link_to "Your profile", profile_path(username: current_user.username) %>
 
 <h2>Posts</h2>
 
@@ -8,13 +8,25 @@
   <ul>
     <% @posts.each do |post|%>
       <li>
-        <%= post.creator.username %><br>
-        <%= post.content %>
+        <div class="post">
+          <%= link_to post.creator.username, profile_path(username: post.creator.username) %>
+          - 
+          <% time_diff = Time.now - post.created_at %>
+          <% if time_diff / (60 * 60) > 24 %>
+            <%= post.created_at.strftime("%b %-e, %Y") %>
+          <% elsif time_diff / (60 * 60) > 1 %>
+            <%= "#{(time_diff / (60 * 60)).round} hours ago" %>
+          <% else %>
+            <%= "#{(time_diff / (60)).round} minutes ago" %>
+          <% end %>
+          <br>
+          <%= link_to post.content, post %>
+        </div>
       </li>
     <% end %>
   </ul>
 <% else %>
-  <p><%='Nothing to see here... yet!'%></p>
+  <p>Nothing to see here... yet!</p>
 <% end %>
 
 <%= link_to "Create a post", new_post_path %>
