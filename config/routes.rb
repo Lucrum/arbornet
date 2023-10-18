@@ -8,5 +8,5 @@ Rails.application.routes.draw do
 
   resources :users
   resources :posts
-  resources :profiles, only: %i[show update]
+  resources :profiles, only: %i[show update], param: :username
 end
