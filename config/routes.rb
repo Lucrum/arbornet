@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :users
   resources :posts
   resources :profiles, only: %i[show update], param: :username
+  resources :friend_requests, only: %i[create update destroy]
+  resources :friendships, only: %i[destroy]
 end

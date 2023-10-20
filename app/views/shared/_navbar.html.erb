@@ -1,5 +1,12 @@
 <div class="navbar">
-  <h1>Arbornet</h1>
-  <%= link_to current_user.username, profile_path(username: current_user.username) %>
-  <%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete } %>
+  <h1><%= link_to "Arbornet", root_path %></h1>
+
+  <% if user_signed_in? %>
+    <%= link_to current_user.username, profile_path(username: current_user.username) %>
+    <%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete } %>
+  <% end %>
+
+  <% if flash[:notice] %>
+    <p><%= flash[:notice] %></p>
+    <% end %>
 </div>
