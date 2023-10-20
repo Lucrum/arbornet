@@ -3,9 +3,11 @@
 <%= link_to "Homepage", root_path %>
 
 <% if @friendable %>
-  <%= link_to "Send friend request", friend_requests_path(receiver: @profile), data: {
-    turbo_method: :post
-  } %>
+  <%= link_to "Send friend request",
+    friendships_path(id: current_user, receiver: @profile),
+    data: {
+      turbo_method: :post
+    } %>
 <% end %>
 
 <% if @profile == current_user %>
@@ -16,9 +18,9 @@
       <% @pending_friend_requests.each do |request| %>
         <li>
           <%= request.sender.username %>
-          <%= link_to "Accept", friend_request_path(request, status: :accept), data: {
+          <%= link_to "Accept", friendship_path(request, status: :accept), data: {
               turbo_method: :patch } %>
-          <%= link_to "Ignore", friend_request_path(request, status: :ignore), data: {
+          <%= link_to "Ignore", friendship_path(request, status: :ignore), data: {
               turbo_method: :patch } %>
         </li>
       <% end %>
@@ -32,7 +34,7 @@
         <% @sent_friend_requests.each do |request| %>
           <li>
             <%= request.receiver.username %>
-            <%= link_to "Cancel", friend_request_path(request), data: {
+            <%= link_to "Cancel", friendship_path(request), data: {
               turbo_method: :delete } %>
           </li>
         <% end %>
@@ -62,11 +64,19 @@
     <ul>
       <% @friendships.each do |friendship| %>
         <li>
-          <%= link_to friendship.receiver.username, friendship.receiver.username %>
-          <%= link_to "Remove friend", friendship_path(friendship), data: {
-            turbo_method: :delete,
-            turbo_confirm: "Are you sure you want to remove #{friendship.receiver.username} as a friend?"
-          } %>
+          <% if @profile == friendship.receiver %>
+            <% friend_name = friendship.sender.username %>
+          <% else %>
+            <% friend_name = friendship.receiver.username %>
+          <% end %>
+          <%= link_to friend_name, friend_name %>
+
+          <% if @profile == current_user %>
+            <%= link_to "Remove friend", friendship_path(friendship), data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure you want to remove #{friend_name} as a friend?"
+            } %>
+          <% end %>
         </li>
       <% end %>
     </ul>
