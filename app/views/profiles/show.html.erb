@@ -10,39 +10,6 @@
     } %>
 <% end %>
 
-<% if @profile == current_user %>
-  <% if @pending_friend_requests.any? %>
-    <div class="pending-requests">
-    <h3>Pending friend requests</h3>
-    <ol>
-      <% @pending_friend_requests.each do |request| %>
-        <li>
-          <%= request.sender.username %>
-          <%= link_to "Accept", friendship_path(request, status: :accept), data: {
-              turbo_method: :patch } %>
-          <%= link_to "Ignore", friendship_path(request, status: :ignore), data: {
-              turbo_method: :patch } %>
-        </li>
-      <% end %>
-    </ol>
-    </div>
-  <% end %>
-  <% if @sent_friend_requests.any? %>
-    <div class="sent-requests">
-      <h3>Sent requests</h3>
-      <ol>
-        <% @sent_friend_requests.each do |request| %>
-          <li>
-            <%= request.receiver.username %>
-            <%= link_to "Cancel", friendship_path(request), data: {
-              turbo_method: :delete } %>
-          </li>
-        <% end %>
-      </ol>
-    </div>
-  <% end %>
-<% end %>
-
 <div class="user-posts">
   <% if @profile.posts.any? %>
     <h3><%= @profile.username %>'s posts</h3>

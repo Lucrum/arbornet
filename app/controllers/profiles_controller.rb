@@ -1,16 +1,15 @@
 class ProfilesController < ApplicationController
   def show
-    @profile = User.find_by(username: params[:username])
+    @profile = User.eager_load(:posts)
+                   .find_by(username: params[:username])
     
     @friendships = @profile.friendships.where(status: :accepted)
       .or(@profile.inverse_friendships.where(status: :accepted))
 
-    @friendable = user_friendable? @profile
-
     if @profile == current_user
-      @pending_friend_requests = current_user.received_friend_requests
-        .where(status: :pending)
-      @sent_friend_requests = current_user.sent_friend_requests
+      @friendable = false
+    else
+      @friendable = user_friendable? @profile
     end
   end
 

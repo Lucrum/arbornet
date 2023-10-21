@@ -1,0 +1,39 @@
+<h1>Notifications</h1>
+
+<div class="notifications">
+  <% if @pending_friend_requests.any? || @sent_friend_requests.any? %>
+    <% if @pending_friend_requests.any? %>
+    <div class="pending-requests">
+    <h3>Pending friend requests</h3>
+    <ol>
+      <% @pending_friend_requests.each do |request| %>
+        <li>
+          <%= link_to request.sender.username, profile_path(username: request.sender.username) %>
+          <%= link_to "Accept", friendship_path(request, status: :accept), data: {
+              turbo_method: :patch } %>
+          <%= link_to "Ignore", friendship_path(request, status: :ignore), data: {
+              turbo_method: :patch } %>
+        </li>
+      <% end %>
+    </ol>
+    </div>
+  <% end %>
+  <% if @sent_friend_requests.any? %>
+    <div class="sent-requests">
+      <h3>Sent requests</h3>
+      <ol>
+        <% @sent_friend_requests.each do |request| %>
+          <li>
+            <%= link_to request.receiver.username, profile_path(username: request.receiver.username) %>
+            <%= link_to "Cancel", friendship_path(request), data: {
+              turbo_method: :delete } %>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+  <% end %>
+  
+  <% else %>
+    <p>Looks like you're all caught up!</p>
+  <% end %>
+</div>

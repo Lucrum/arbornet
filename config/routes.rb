@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :posts
   resources :profiles, only: %i[show update], param: :username
   resources :friendships, only: %i[create update destroy]
+  resources :notifications, only: %i[index]
 end
