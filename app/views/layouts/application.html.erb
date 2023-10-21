@@ -11,7 +11,11 @@
   </head>
 
   <body>
-    <%= render "shared/navbar" %>
-    <%= yield %>
+    <%= render "shared/navbar" if user_signed_in? %>
+    <div class="content">
+      <div class="content-wrapper">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
