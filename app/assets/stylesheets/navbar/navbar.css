@@ -1,11 +1,15 @@
-div.navbar {
+div.navbar, div.notices {
   display: flex;
   align-items: center;
-  width: 95vw;
-  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem;
 }
 
 img.navbar-icon {
   height: 2rem;
   width: 2rem;
+}
+
+.logo {
+  margin-right: auto;
 }
