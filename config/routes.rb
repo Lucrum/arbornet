@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   resources :users
   resources :posts
-  resources :profiles, only: %i[show update], param: :username
+
+  resources :profiles, only: %i[show edit update], param: :username
+
   resources :friendships, only: %i[create update destroy]
   resources :notifications, only: %i[index]
 end

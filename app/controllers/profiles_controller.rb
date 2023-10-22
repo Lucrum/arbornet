@@ -13,7 +13,28 @@ class ProfilesController < ApplicationController
     end
   end
 
+  # only current user can edit their profile
+  def edit
+    @profile = User.find_by(username: params[:username])
+    unless @profile == current_user
+      flash[:notice] = "You are not allowed to edit that profile."
+      redirect_to profile_path(@profile.username)
+    end
+  end
+
   def update
+    @profile = User.find_by(username: params[:username])
+    unless @profile == current_user
+      flash[:notice] = "You are not allowed to edit that profile."
+      redirect_to profile_path(@profile.username)
+    end
+
+    if @profile.update(clean_profile_params)
+      redirect_to profile_path(@profile.username)
+    else
+      render :edit, status: :unprocessable_entity
+    end
+
   end
 
   private
@@ -33,5 +54,19 @@ class ProfilesController < ApplicationController
     else
       @friendable = false
     end
+  end
+
+  def clean_profile_params
+    res = {}
+    profile_params.each do |param, value|
+      profile_params[param] == "" ? res[param] = nil : res[param] = value
+    end
+    res
+  end
+
+  def profile_params
+    params.require(:user).permit(
+      :username, :location, :about_me
+    )
   end
 end

@@ -1,6 +1,18 @@
 <h1><%= @profile.username %></h1>
+<% if @profile == current_user %>
+  <%= link_to "Edit profile", edit_profile_path(@profile.username) %>
+<% end %>
 
-<%= link_to "Homepage", root_path %>
+<div class="user-info">
+  <% if @profile.location %>
+    <h4>Currently at: </h4>
+    <p><%= @profile.location %></p>
+  <% end %>
+  <% if @profile.about_me %>
+    <h4>About me:</h4>
+    <p><%= @profile.about_me %></p>
+  <% end %>
+</div>
 
 <% if @friendable %>
   <%= link_to "Send friend request",
@@ -9,6 +21,8 @@
       turbo_method: :post
     } %>
 <% end %>
+
+
 
 <div class="user-posts">
   <% if @profile.posts.any? %>

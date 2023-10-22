@@ -1,0 +1,24 @@
+<h1>Edit Profile</h1>
+
+<div class="profile-form">
+  <%= form_with model: @profile, url: profile_path(@profile.username) do |f| %>
+    <div class="field">
+      <%= f.label :username %><br />
+      <%= f.text_field :username %>
+    </div>
+
+    <div class="field">
+      <%= f.label :location %><br />
+      <%= f.text_field :location %>
+    </div>
+
+    <div class="field">
+      <%= f.label :about_me %><br />
+      <%= f.text_area :about_me %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Edit Profile" %>
+    </div>
+  <% end %>
+</div>
