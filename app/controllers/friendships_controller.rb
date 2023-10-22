@@ -6,11 +6,12 @@ class FriendshipsController < ApplicationController
     unless current_user.sent_friend_requests.where(receiver: target_user).any?
       @friendship = current_user.sent_friend_requests.build(receiver: User.find(friend_request_params), status: :pending)
 
-      flash[:notice] = 'Unable to send friend request' unless @friendship.save
+      flash[:notice] = "Unable to send friend request" unless @friendship.save
     else
-      flash[:notice] = 'Already sent a request to this user.'
+      flash[:notice] = "Already sent a request to this user"
     end
 
+    flash[:notice] = "Sent request to #{target_user.username}"
     redirect_to request.referrer
   end
 
@@ -25,7 +26,7 @@ class FriendshipsController < ApplicationController
           remove_all_outstanding_requests(current_user, @friendship.sender)
           flash[:notice] = "Accepted friend request"
         else
-          flash[:notice] = "Failed to accept request."
+          flash[:notice] = "Failed to accept request"
         end
       when 'ignore'
         if @friendship.update(status: :ignored)
@@ -44,9 +45,14 @@ class FriendshipsController < ApplicationController
   # ONLY THE LOGGED IN USER CAN DESTROY THEIR OWN FRIENDSHIPS
   def destroy
     target_friendship = Friendship.find(params[:id])
+    if target_friendship.status == :pending
+      flash[:notice] = "Request removed"
+    else
+      flash[:notice] = "Friend removed"
+    end
+
     target_friendship.destroy
 
-    flash[:notice] = 'Friend removed.'
     redirect_to request.referrer
   end
 
