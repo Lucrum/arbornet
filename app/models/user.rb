@@ -24,5 +24,13 @@ class User < ApplicationRecord
     .or(where(friendships: { status: :ignored })) },
   class_name: 'Friendship', foreign_key: 'receiver_id'
 
-  has_many :posts
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
+
+  has_many :liked_posts, through: :likes,
+    source: :likable, source_type: "Post"
+  has_many :liked_comments, through: :likes,
+    source: :likable, source_type: "Comment"
+
+  has_many :posts, dependent: :destroy
 end

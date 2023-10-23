@@ -27,3 +27,8 @@ div.content {
 h1 {
   margin: 0px;
 }
+
+img.small-icon {
+  height: 2rem;
+  width: 2rem;
+}

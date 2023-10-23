@@ -1,0 +1,7 @@
+<div class="like-count">
+  <%= likable.likes.count %>
+  <%= link_to image_tag("icons/thumb-up-outline.svg", alt: "Like", class: "small-icon"),
+      likes_path(like: { likable_id: likable.id, likable_type: likable.class.name }), data: {
+        turbo_method: :post
+      } %>
+</div>

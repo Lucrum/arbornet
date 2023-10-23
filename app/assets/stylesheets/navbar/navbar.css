@@ -5,11 +5,6 @@ div.navbar, div.notices {
   padding: 2rem;
 }
 
-img.navbar-icon {
-  height: 2rem;
-  width: 2rem;
-}
-
 .logo {
   margin-right: auto;
 }

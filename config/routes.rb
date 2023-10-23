@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   root "posts#index"
 
   resources :users
+
   resources :posts
+
+  resources :likes, only: %i[create destroy]
 
   resources :profiles, only: %i[show edit update], param: :username
 
