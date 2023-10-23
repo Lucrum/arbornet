@@ -17,7 +17,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
 
     if @post.save
-      redirect_to @post
+      redirect_to @post, notice: "Post created!"
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,9 +30,8 @@ class PostsController < ApplicationController
   end
 
   def update
-    unless @post.creator == current_user
-      redirect_to root_path
-    end
+    redirect_to root_path unless @post.creator == current_user
+
     if @post.update(post_params)
       redirect_to @post
     else
@@ -42,9 +41,8 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    flash[:notice] = "Post deleted"
 
-    redirect_to root_path
+    redirect_to root_path, notice: "Post deleted"
   end
 
   private
@@ -58,6 +56,6 @@ class PostsController < ApplicationController
   end
 
   def check_post_ownership
-    redirect_to root_path unless @post.creator == current_user
+    return redirect_to root_path unless @post.creator == current_user
   end
 end

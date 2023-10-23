@@ -60,6 +60,6 @@ class ProfilesController < ApplicationController
 
   def check_profile_ownership
     @profile = User.find_by(username: params[:username])
-    redirect_to profile_path(@profile) unless @profile == current_user
+    return redirect_to profile_path(@profile) unless @profile == current_user
   end
 end
