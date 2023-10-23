@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+  before_action :check_profile_ownership, only: %i[edit update]
   def show
     @profile = User.eager_load(:posts)
                    .find_by(username: params[:username])
@@ -13,28 +14,15 @@ class ProfilesController < ApplicationController
     end
   end
 
-  # only current user can edit their profile
   def edit
-    @profile = User.find_by(username: params[:username])
-    unless @profile == current_user
-      flash[:notice] = "You are not allowed to edit that profile."
-      redirect_to profile_path(@profile.username)
-    end
   end
 
   def update
-    @profile = User.find_by(username: params[:username])
-    unless @profile == current_user
-      flash[:notice] = "You are not allowed to edit that profile."
-      redirect_to profile_path(@profile.username)
-    end
-
     if @profile.update(clean_profile_params)
       redirect_to profile_path(@profile.username)
     else
       render :edit, status: :unprocessable_entity
     end
-
   end
 
   private
@@ -68,5 +56,10 @@ class ProfilesController < ApplicationController
     params.require(:user).permit(
       :username, :location, :about_me
     )
+  end
+
+  def check_profile_ownership
+    @profile = User.find_by(username: params[:username])
+    redirect_to profile_path(@profile) unless @profile == current_user
   end
 end

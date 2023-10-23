@@ -2,5 +2,12 @@
 <h1>Post by <%= link_to creator_username, profile_path(creator_username) %></h1>
 
 <p><%= @post.content %></p>
+<div>
+  <%= render "likes/like_count", likable: @post %>
+  <br>
+  <% if @post.creator == current_user %>
+    <%= link_to "Edit", edit_post_path(@post) %>
+  <% end %>
+</div>
 
 <%= link_to "Back", :back %>
