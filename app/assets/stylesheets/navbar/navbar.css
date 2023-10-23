@@ -3,6 +3,7 @@ div.navbar, div.notices {
   align-items: center;
   gap: 2rem;
   padding: 2rem;
+  justify-content: center;
 }
 
 .logo {
