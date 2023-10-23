@@ -5,23 +5,22 @@ class LikesController < ApplicationController
 
     @like = current_user.likes.build(likable_params)
 
-    flash[:notice] = @like.save ? "Liked post" : "Unable to like post"
+    flash[:notice] = @like.save ? "Liked #{likable_params[:likable_type]}" : "Unable to like #{likable_params[:likable_type]}"
 
     redirect_to request.referrer
   end
 
   def destroy
     return redirect_to request.referrer, notice: "Like does not exist" unless @existing_like
-    @like = Like.find(params[:id])
 
-    @like.destroy
+    @existing_like.destroy
 
-    flash[:notice] = "Unliked post"
+    flash[:notice] = "Unliked #{likable_params[:likable_type]}"
 
     redirect_to request.referrer
   end
 
-  # to do likes, comments
+  # to do comments
   # add guard
 
   private
@@ -34,6 +33,6 @@ class LikesController < ApplicationController
     @existing_like = current_user.likes.find_by(
       likable_id: likable_params[:likable_id],
       likable_type: likable_params[:likable_type]
-    ).present?
+    )
   end
 end
