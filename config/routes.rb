@@ -8,9 +8,15 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :posts
+  resources :posts do
+    get "like", to: "likes#like"
+    resources :comments
+  end
 
-  resources :likes, only: %i[create destroy]
+  resources :comments do
+    get "like", to: "likes#like"
+    resources :comments
+  end
 
   resources :profiles, only: %i[show edit update], param: :username
 

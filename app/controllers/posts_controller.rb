@@ -3,13 +3,13 @@ class PostsController < ApplicationController
   before_action :check_post_ownership, except: %i[index new create show]
 
   def index
-    @posts = Post.all.includes(:creator)
+    @posts = Post.all.includes([:creator, :likes])
   end
 
   def new
     @post = Post.new
   end
-  
+
   def show
   end
 

@@ -1,15 +1,12 @@
 <div class="like-count">
-  <%= likable.likes.count %>
-
-  <% if current_user.likes.find_by(likable_id: likable.id, likable_type: likable.class.name) %>
-    <%= link_to image_tag("icons/thumb-up-outline.svg", alt: "Like", class: "small-icon"),
-      like_path(like: { likable_id: likable.id, likable_type: likable.class.name }), data: {
-        turbo_method: :delete
-      } %>
-  <% else %>
-    <%= link_to image_tag("icons/thumb-up-outline.svg", alt: "Like", class: "small-icon"),
-      likes_path(like: { likable_id: likable.id, likable_type: likable.class.name }), data: {
-        turbo_method: :post
-      } %>
+  <%= likable.likes.length %>
+  <% likable_type = likable.class.name %>
+  <% case likable_type %>
+  <% when "Post" %>
+    <% path = post_like_path(likable) %>
+  <% when "Comment" %>
+    <% path = comment_like_path(likable) %>
   <% end %>
+  <%= link_to image_tag("icons/thumb-up-outline.svg", alt: "Like", class: "small-icon"),
+      path %>
 </div>

@@ -19,6 +19,8 @@
           <% end %>
           <br>
           <%= link_to post.content, post %>
+          <br>
+          <%= render "likes/like_count", likable: post %>
         </div>
       </li>
     <% end %>
