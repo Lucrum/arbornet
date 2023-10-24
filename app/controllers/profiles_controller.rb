@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   def show
     @profile = User.eager_load(:posts)
                    .find_by(username: params[:username])
-    
+
     @friendships = @profile.friendships.where(status: :accepted)
       .or(@profile.inverse_friendships.where(status: :accepted))
 

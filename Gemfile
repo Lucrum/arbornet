@@ -51,6 +51,10 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'guard'
+  gem 'guard-rspec', require: false
+  gem 'rspec-rails', '~> 6.0', '>= 6.0.3'
+  gem 'shoulda', '~> 3.5'
 end
 
 group :development do
@@ -68,7 +72,9 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "database_cleaner-active_record"
 
 end
 
+# user accounts + authentication
 gem "devise", "~> 4.9"
