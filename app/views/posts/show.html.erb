@@ -8,4 +8,7 @@
   <% if @post.creator == current_user %>
     <%= link_to "Edit", edit_post_path(@post) %>
   <% end %>
+
+  <%= render "comments/comment_form_commentable", commentable: @post %>
+  <%= render "comments/comments_list", commentable: @post %>
 </div>

@@ -17,9 +17,6 @@ class LikesController < ApplicationController
 
   private
 
-  # to do comments
-  # toggle likes (simplify the button itself)
-
   def set_likable_params
     if params[:post_id]
       @likable_type = "Post"
@@ -30,6 +27,7 @@ class LikesController < ApplicationController
     end
   end
 
+  # only checks for current user's like
   def check_existing_like
     @existing_like = current_user.likes.find_by(
       likable_id: @likable_id,

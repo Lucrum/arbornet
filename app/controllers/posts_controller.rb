@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :set_post, except: %i[index new create]
-  before_action :check_post_ownership, except: %i[index new create show]
+  before_action :set_post, only: %i[edit update destroy]
+  before_action :check_post_ownership, only: %i[edit update destroy]
 
   def index
     @posts = Post.all.includes([:creator, :likes])
@@ -11,6 +11,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.includes(:comments).find(params[:id])
   end
 
   def create

@@ -63,7 +63,7 @@ class FriendshipsController < ApplicationController
     # get all requests between user one and two, and destroy them, pending OR ignored
     friend_requests = Friendship.outstanding(user_one, user_two)
       .where(status: %i[pending ignored])
-    
+
     friend_requests.each do |req|
       req.destroy
     end
@@ -77,5 +77,5 @@ class FriendshipsController < ApplicationController
     params.permit(:id, :status, :_method)
   end
 
-  
+
 end
