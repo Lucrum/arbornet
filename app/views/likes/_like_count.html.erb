@@ -1,12 +1,5 @@
 <div class="like-count">
   <%= likable.likes.length %>
-  <% likable_type = likable.class.name %>
-  <% case likable_type %>
-  <% when "Post" %>
-    <% path = post_like_path(likable) %>
-  <% when "Comment" %>
-    <% path = comment_like_path(likable) %>
-  <% end %>
   <%= link_to image_tag("icons/thumb-up-outline.svg", alt: "Like", class: "small-icon"),
-      path %>
+      polymorphic_path([likable, :like]) %>
 </div>
