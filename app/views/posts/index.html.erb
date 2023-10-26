@@ -9,14 +9,7 @@
         <div class="post">
           <%= link_to post.creator.username, profile_path(username: post.creator.username) %>
           - 
-          <% time_diff = Time.now - post.created_at %>
-          <% if time_diff / (60 * 60) > 24 %>
-            <%= post.created_at.strftime("%b %-e, %Y") %>
-          <% elsif time_diff / (60 * 60) > 1 %>
-            <%= pluralize((time_diff / (60 * 60)).round, "hour") + " ago" %>
-          <% else %>
-            <%= pluralize((time_diff / (60)).round, "minute") + " ago" %>
-          <% end %>
+          <%= render "shared/time_ago", item: post %>
           <br>
           <%= link_to post.content, post %>
           <br>

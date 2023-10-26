@@ -6,8 +6,8 @@
     <h4>Comments</h4>
     <ol>
       <% valid_comments.each do |comment| %>
-        <li>
-          <%= link_to comment.creator.username, profile_path(comment.creator.username) %><br>
+        <li class="comment">
+          <p><%= link_to comment.creator.username, profile_path(comment.creator.username) %> - <%= render "shared/time_ago", item: comment %></p>
           <%= comment.content %>
           <% if comment.creator == current_user %>
             <%= link_to "Edit", edit_polymorphic_path([commentable, comment]) %>
