@@ -1,7 +1,9 @@
-<div class="form">
-  <%= form_with model: post do |form| %>
+<div class="post-form">
+  <%= form_with model: post, class: "form" do |form| %>
     <%= form.label :content %>
     <%= form.text_area :content %>
+    <%= form.label :photos %>
+    <%= form.file_field :photos, multiple: true %>
     <%= form.submit %>
   <% end %>
 </div>

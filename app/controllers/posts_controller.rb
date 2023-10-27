@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :check_post_ownership, only: %i[edit update destroy]
 
   def index
-    @posts = Post.all.includes([:creator, :likes]).order("created_at DESC")
+    @posts = Post.all.includes([:creator, :likes, :photos_attachments]).order("created_at DESC")
   end
 
   def new
@@ -20,6 +20,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, notice: "Post created!"
     else
+      flash[:errors] = @post.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end
@@ -49,7 +50,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content)
+    params.require(:post).permit(:content, photos: [])
   end
 
   def set_post

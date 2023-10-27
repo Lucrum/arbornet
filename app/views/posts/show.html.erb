@@ -1,7 +1,16 @@
 <% creator_username = @post.creator.username %>
 <h1>Post by <%= link_to creator_username, profile_path(creator_username) %></h1>
 
-<p><%= @post.content %></p>
+<% if @post.content %>
+  <p><%= @post.content %></p>
+<% end %>
+
+<% if @post.photos.attached? %>
+  <% @post.photos.each do |photo| %>
+    <%= image_tag photo.variant(:large), class: "medium-photo" %>
+  <% end %>
+<% end %>
+
 <div>
   <%= render "likes/like_count", likable: @post %>
   <br>

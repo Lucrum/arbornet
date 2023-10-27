@@ -1,7 +1,7 @@
 <h1>Edit Profile</h1>
 
 <div class="profile-form">
-  <%= form_with model: @profile, url: profile_path(@profile.username) do |f| %>
+  <%= form_with model: @profile, url: profile_path(@profile.username), class: "form" do |f| %>
     <div class="field">
       <%= f.label :username %><br />
       <%= f.text_field :username %>
