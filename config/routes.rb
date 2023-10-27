@@ -6,8 +6,6 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "posts#index"
 
-  resources :users
-
   resources :posts do
     get "like", to: "likes#like"
     resources :comments
@@ -18,7 +16,7 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :profiles, only: %i[show edit update], param: :username
+  resources :profiles, only: %i[index show edit update], param: :username
 
   resources :friendships, only: %i[create update destroy]
   resources :notifications, only: %i[index]

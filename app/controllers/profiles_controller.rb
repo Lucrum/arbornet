@@ -1,5 +1,13 @@
 class ProfilesController < ApplicationController
   before_action :check_profile_ownership, only: %i[edit update]
+  def index
+    @profiles = User.all
+    @friendables = {}
+    @profiles.each do |profile|
+      @friendables[profile.id] = user_friendable? profile
+    end
+  end
+
   def show
     @profile = User.eager_load(:posts)
                    .find_by(username: params[:username])
