@@ -32,3 +32,7 @@ img.small-icon {
   height: 2rem;
   width: 2rem;
 }
+
+div.content-wrapper {
+  width: clamp(500px, 50vw, 700px);
+}
