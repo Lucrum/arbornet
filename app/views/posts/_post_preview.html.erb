@@ -1,0 +1,24 @@
+<div class="post-preview">
+  <% if post.creator.avatar.attached? %>
+    <%= image_tag post.creator.avatar.variant(:thumb), class: "small-icon" %>
+  <% else %>
+    <%= image_tag "icons/account-circle-outline.svg", alt: "user-icon", class: "small-icon" %>
+  <% end %>
+  <%= link_to post.creator.username, profile_path(username: post.creator.username) %>
+  - 
+  <%= render "shared/time_ago", item: post %>
+  <br>
+  <%= link_to post do %>
+    <% if post.content %>
+      <p><%= post.content %></p>
+    <% end %>
+
+    <% if post.photos.attached? %>
+      <% post.photos.each do |photo| %>
+        <%= image_tag photo.variant(:medium), class: "medium-photo" %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <br>
+  <%= render "likes/like_count", likable: post %>
+</div>

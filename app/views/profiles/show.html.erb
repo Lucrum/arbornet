@@ -31,9 +31,9 @@
   <% if @profile.posts.any? %>
     <h3><%= @profile.username %>'s posts</h3>
     <ul>
-      <% @profile.posts.each do |post| %>
+      <% @profile.posts.reverse.each do |post| %>
         <li>
-          <%= link_to post.content, post %>
+          <%= render "posts/post_preview", post: post %>
         </li>
       <% end %>
     </ul>
