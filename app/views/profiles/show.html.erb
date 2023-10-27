@@ -1,4 +1,7 @@
-<h1><%= @profile.username %></h1>
+<div>
+  <%= image_tag @profile.avatar.variant(:medium) %>
+  <h1><%= @profile.username %></h1>
+</div>
 <% if @profile == current_user %>
   <%= link_to "Edit profile", edit_profile_path(@profile.username) %>
 <% end %>
