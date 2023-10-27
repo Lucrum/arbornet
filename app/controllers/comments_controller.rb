@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
 
   def create # need commentable type and commentable ID
     @comment = current_user.comments.build(comment_params)
-    flash[:notice] = "Unable to save comment" unless @comment.save
+    flash[:errors] = @comment.errors unless @comment.save
     redirect_to request.referrer
   end
 

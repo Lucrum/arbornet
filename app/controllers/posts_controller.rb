@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :check_post_ownership, only: %i[edit update destroy]
 
   def index
-    @posts = Post.all.includes([:creator, :likes])
+    @posts = Post.all.includes([:creator, :likes]).order("created_at DESC")
   end
 
   def new

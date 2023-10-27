@@ -13,4 +13,10 @@
   <% if flash[:notice] %>
     <p><%= flash[:notice] %></p>
   <% end %>
+
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |name, error| %>
+      <p><%= error[0] %></p>
+    <% end %>
+  <% end %>
 </div>
