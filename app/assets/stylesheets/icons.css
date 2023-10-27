@@ -1,0 +1,16 @@
+img.small-circle-icon,
+img.small-icon {
+  height: 2rem;
+  width: 2rem;
+}
+
+img.small-circle-icon,
+img.circle-icon {
+  border-radius: 50%;
+}
+
+img.circle-icon {
+  object-fit: cover;
+  height: 5rem;
+  width: 5rem;
+}

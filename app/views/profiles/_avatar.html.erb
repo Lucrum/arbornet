@@ -1,5 +1,5 @@
 <% if user.avatar.attached? %>
-  <%= image_tag user.avatar.variant(:thumb), class: "small-icon" %>
+  <%= image_tag user.avatar.variant(:medium), class: "circle-icon" %>
 <% else %>
-  <%= image_tag "icons/account-circle-outline.svg", alt: "user-icon", class: "small-icon" %>
+  <%= image_tag "icons/account-circle-outline.svg", alt: "user-icon", class: "circle-icon" %>
 <% end %>

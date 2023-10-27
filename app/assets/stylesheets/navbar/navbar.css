@@ -1,9 +1,12 @@
 div.navbar, div.notices {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+div.navbar {
   gap: 2rem;
   padding: 2rem;
-  justify-content: center;
 }
 
 .logo {

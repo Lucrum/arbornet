@@ -1,11 +1,14 @@
 <div class="post-preview">
-  <%= render "profiles/avatar", user: post.creator %>
-  <%= link_to post.creator.username, profile_path(username: post.creator.username) %>
+  
+  <%= link_to profile_path(username: post.creator.username) do %>
+    <%= render "profiles/avatar_small", user: post.creator %>
+    <%= post.creator.username %>
+  <% end %>
   - 
   <%= render "shared/time_ago", item: post %>
   <br>
   <%= link_to post do %>
-    <% if post.content %>
+    <% if post.content.present? %>
       <p><%= post.content %></p>
     <% end %>
 

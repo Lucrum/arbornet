@@ -2,7 +2,7 @@
 
 <% @profiles.each do |profile| %>
   <div class="profile">
-    <%= render "avatar", user: profile %>
+    <%= render "avatar_small", user: profile %>
     <%= link_to profile.username, profile_path(profile.username) %>
   </div>
   <% if @friendables[profile.id] %>
