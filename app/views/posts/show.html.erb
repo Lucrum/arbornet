@@ -7,6 +7,10 @@
   <br>
   <% if @post.creator == current_user %>
     <%= link_to "Edit", edit_post_path(@post) %>
+    <%= link_to "Delete", post_path(@post), data: {
+      turbo_method: :delete,
+      turbo_confirm: "Are you sure you want to delete this post?"
+    } %>
   <% end %>
 
   <%= render "comments/comment_form_commentable", commentable: @post %>
