@@ -1,5 +1,5 @@
 <div>
-  <%= image_tag @profile.avatar.variant(:medium) %>
+  <%= render "avatar", user: @profile %>
   <h1><%= @profile.username %></h1>
 </div>
 <% if @profile == current_user %>

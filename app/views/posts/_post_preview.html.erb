@@ -1,9 +1,5 @@
 <div class="post-preview">
-  <% if post.creator.avatar.attached? %>
-    <%= image_tag post.creator.avatar.variant(:thumb), class: "small-icon" %>
-  <% else %>
-    <%= image_tag "icons/account-circle-outline.svg", alt: "user-icon", class: "small-icon" %>
-  <% end %>
+  <%= render "profiles/avatar", user: post.creator %>
   <%= link_to post.creator.username, profile_path(username: post.creator.username) %>
   - 
   <%= render "shared/time_ago", item: post %>
