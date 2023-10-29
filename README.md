@@ -24,8 +24,4 @@ Users can send friend requests to other users, which can be accepted or ignored.
 
 An actual UI
 
-OmniAuth integration for simple sign ups and sign ins
-
 Email notifications for sign ups
-
-"Timeline" on post index
