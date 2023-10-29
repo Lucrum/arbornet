@@ -2,8 +2,10 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[edit update destroy]
   before_action :check_post_ownership, only: %i[edit update destroy]
 
+  # timeline, only show posts from the user and user's friends
   def index
-    @posts = Post.all.includes([:creator, :likes, :photos_attachments]).order("created_at DESC")
+    total_friends = current_user.friends + current_user.inverse_friends + [current_user]
+    @posts = Post.where(creator: total_friends).includes([:creator, :likes, :photos_attachments]).order("created_at DESC")
   end
 
   def new

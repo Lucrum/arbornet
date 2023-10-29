@@ -9,10 +9,17 @@ class Post < ApplicationRecord
   end
 
   validate :has_text_or_photo
+  validate :text_size
 
   def has_text_or_photo
     unless content? || photos.attached?
-      errors.add(:content, "must have either text or a photo")
+      errors.add(:post, "must have either text or a photo")
+    end
+  end
+
+  def text_size
+    if content? && content.length > 500
+      errors.add(:text, "cannot be too long (500 character limit)")
     end
   end
 end
