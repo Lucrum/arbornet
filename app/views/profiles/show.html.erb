@@ -48,16 +48,17 @@
       <% @friendships.each do |friendship| %>
         <li>
           <% if @profile == friendship.receiver %>
-            <% friend_name = friendship.sender.username %>
+            <% friend = friendship.sender %>
           <% else %>
-            <% friend_name = friendship.receiver.username %>
+            <% friend = friendship.receiver %>
           <% end %>
-          <%= link_to friend_name, friend_name %>
+          <%= render "avatar_small", user: friend %>
+          <%= link_to friend.username, friend.username %>
 
           <% if @profile == current_user %>
             <%= link_to "Remove friend", friendship_path(friendship), data: {
               turbo_method: :delete,
-              turbo_confirm: "Are you sure you want to remove #{friend_name} as a friend?"
+              turbo_confirm: "Are you sure you want to remove #{friend.username} as a friend?"
             } %>
           <% end %>
         </li>
