@@ -9,7 +9,7 @@
   <br>
   <%= link_to post do %>
     <% if post.content.present? %>
-      <p><%= post.content %></p>
+      <p class="post-preview-content"><%= post.content %></p>
     <% end %>
 
     <% if post.photos.attached? %>
