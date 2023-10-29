@@ -3,10 +3,15 @@ class User < ApplicationRecord
   validates :username, length: { minimum: 3 }
   validates :username, uniqueness: true
 
+  validates :email, presence: true
+  validates :password, presence: true
+  validates :password, length: { minimum: 6 }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: %i[google_oauth2]
 
   # accepted friendships
   has_many :friendships, foreign_key: 'sender_id'
@@ -38,5 +43,20 @@ class User < ApplicationRecord
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
     attachable.variant :medium, resize_to_limit: [250, 250]
+  end
+
+  def self.from_omniauth(access_token)
+    data = access_token.info
+    user = User.where(email: data['email']).first
+
+    # Uncomment the section below if you want users to be created if they don't exist
+    unless user
+      user = User.create(
+        username: data['name'],
+        email: data['email'],
+        password: Devise.friendly_token[0,20],
+      )
+    end
+    user
   end
 end
