@@ -47,16 +47,23 @@ class User < ApplicationRecord
 
   def self.from_omniauth(access_token)
     data = access_token.info
-    user = User.where(email: data['email']).first
+    user = User.where(email: data["email"]).first
 
-    # Uncomment the section below if you want users to be created if they don't exist
     unless user
       user = User.create(
-        username: data['name'],
-        email: data['email'],
+        username: generate_username_from_omniauth(data["name"]),
+        email: data["email"],
         password: Devise.friendly_token[0,20],
       )
     end
     user
+  end
+
+  private
+
+  def self.generate_username_from_omniauth(name_data)
+    name = name_data.split(" ").reduce("") { |res, t| res + t[0] }
+    name += User.maximum(:id).next.to_s
+    name
   end
 end
