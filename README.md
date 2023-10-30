@@ -22,8 +22,8 @@ Users can send friend requests to other users, which can be accepted or ignored.
 
 OmniAuth for simple sign up and sign ins
 
+Email notifications for sign ups
+
 # planned features
 
 An actual UI
-
-Email notifications for sign ups

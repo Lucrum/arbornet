@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  after_save :send_welcome_email
   validates :username, presence: true
   validates :username, length: { minimum: 3 }
   validates :username, uniqueness: true
@@ -65,5 +66,9 @@ class User < ApplicationRecord
     name = name_data.split(" ").reduce("") { |res, t| res + t[0] }
     name += User.maximum(:id).next.to_s
     name
+  end
+
+  def send_welcome_email
+    UserMailer.with(user: self).welcome_email.deliver_now
   end
 end

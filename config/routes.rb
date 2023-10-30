@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :profiles, only: %i[index show edit update], param: :username
+  resources :profiles, only: %i[index show edit update destroy], param: :username
 
   resources :friendships, only: %i[create update destroy]
   resources :notifications, only: %i[index]

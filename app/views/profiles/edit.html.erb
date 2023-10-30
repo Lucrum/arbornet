@@ -27,3 +27,8 @@
     </div>
   <% end %>
 </div>
+
+<%= link_to "Delete Account", profile_path(@profile.username), data: {
+  turbo_method: :delete,
+  turbo_confirm: "Are you sure you want to delete your account?"
+} %>

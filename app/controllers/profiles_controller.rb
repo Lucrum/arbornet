@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :check_profile_ownership, only: %i[edit update]
+  before_action :check_profile_ownership, only: %i[edit update destroy]
   def index
     @profiles = User.all
     @friendables = {}
@@ -31,6 +31,11 @@ class ProfilesController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @profile.destroy
+    redirect_to root_path
   end
 
   private
