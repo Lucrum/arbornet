@@ -1,15 +1,15 @@
 <h2>Timeline</h2>
 
-<%= link_to "Create a post", new_post_path %>
+<%= turbo_frame_tag id="new_post", src: new_post_path %>
 
-<% if @posts.any? %>
-  <ul>
+<ul class="post-list" id="posts">
+  <% if @posts.any? %>
     <% @posts.each do |post|%>
       <li>
         <%= render "post_preview", post: post %>
       </li>
     <% end %>
-  </ul>
-<% else %>
-  <p>Nothing to see here... yet!</p>
-<% end %>
+  <% else %>
+    <li>Nothing to see here... yet!</li>
+  <% end %>
+</ul>
