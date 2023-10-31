@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
   before_action :check_comment_ownership, only: %i[edit update destroy]
 
   # show all comments on a particular commentable
+  # todo reverse comment order
   def index # need commentable type and commentable ID
     @comments = Comment.where(commentable_type: @commentable_type)
   end
@@ -15,8 +16,18 @@ class CommentsController < ApplicationController
 
   def create # need commentable type and commentable ID
     @comment = current_user.comments.build(comment_params)
-    flash[:errors] = @comment.errors.full_messages unless @comment.save
-    redirect_to request.referrer
+    @commentable_object = @commentable_type.singularize.classify.constantize.find(@commentable_id)
+
+    respond_to do |format|
+      if @comment.save
+        format.turbo_stream
+      else
+        format.html {
+          flash[:errors] = @comment.errors.full_messages
+          redirect_to request.referrrer
+        }
+      end
+    end
   end
 
   # show a specific comment (in isolation?? probably not)

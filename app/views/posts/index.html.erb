@@ -4,7 +4,7 @@
 
 <ul class="post-list" id="posts">
   <% if @posts.any? %>
-    <% @posts.each do |post|%>
+    <% @posts.reverse_each do |post|%>
       <li>
         <%= render "post_preview", post: post %>
       </li>

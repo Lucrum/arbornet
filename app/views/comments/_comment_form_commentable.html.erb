@@ -6,7 +6,7 @@
   <% when "Comment" %>
     <% path = comment_comments_path(commentable) %>
   <% end %>
-  <%= form_with model: commentable.comments.build, url: path do |form| %>
+  <%= form_with model: commentable.comments.build, url: polymorphic_path([commentable, Comment]) do |form| %>
     <%= form.hidden_field :commentable_type, value: commentable_type %>
     <%= form.hidden_field :commentable_id, value: commentable.id %>
     <%= form.label :content, "Comment" %>
