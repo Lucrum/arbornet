@@ -15,6 +15,7 @@
  */
 
 body {
+  word-wrap: break-word;
   margin: 0px;
 }
 
