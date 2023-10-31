@@ -24,6 +24,8 @@ OmniAuth for simple sign up and sign ins
 
 Email notifications for sign ups
 
+Turbo Stream implementation for Single Page Application-esque likes
+
 # planned features
 
 An actual UI
