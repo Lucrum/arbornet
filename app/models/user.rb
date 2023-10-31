@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  after_save :send_welcome_email
+  after_create :send_welcome_email
   validates :username, presence: true
   validates :username, length: { minimum: 3 }
   validates :username, uniqueness: true
