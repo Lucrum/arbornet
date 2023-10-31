@@ -1,5 +1,9 @@
-<div class="like-count">
-  <%= likable.likes.length %>
-  <%= link_to image_tag("icons/thumb-up-outline.svg", alt: "Like", class: "small-icon"),
-      polymorphic_path([likable, :like]) %>
-</div>
+<%= turbo_frame_tag id="#{likable.class.name}_#{likable.id}" do %>
+  <div class="like-count">
+    <p><%= likable.likes.length %></p>
+    <%= link_to image_tag("icons/thumb-up-outline.svg", alt: "Like", class: "small-icon"),
+        polymorphic_path([likable, :like]), data: {
+          turbo_method: :post
+        } %>
+  </div>
+<% end %>

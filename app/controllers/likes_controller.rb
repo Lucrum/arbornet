@@ -6,13 +6,26 @@ class LikesController < ApplicationController
     if @existing_like
       # remove like
       @existing_like.destroy
-      flash[:notice] = "Unliked #{@likable_type}"
+      # flash[:notice] = "Unliked #{@likable_type}"
     else
       # add like
       @like = current_user.likes.build(likable_id: @likable_id, likable_type: @likable_type)
-      flash[:notice] = @like.save ? "Liked #{@likable_type}" : "Unable to like #{@likable_type}"
+      @like.save
+      # flash[:notice] = @like.save ? "Liked #{@likable_type}" : "Unable to like #{@likable_type}"
     end
-    redirect_to request.referrer
+
+
+    respond_to do |format|
+      format.turbo_stream do
+        likable_object = @likable_type.singularize.classify.constantize.find(@likable_id)
+        render turbo_stream: turbo_stream.update(
+          "#{@likable_type}_#{@likable_id}",
+          partial: "likes/like_count",
+          locals: { likable: likable_object }
+        )
+      end
+      format.html { redirect_to request.referrer }
+    end
   end
 
   private
