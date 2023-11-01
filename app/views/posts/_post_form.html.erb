@@ -1,13 +1,10 @@
 <%= turbo_frame_tag id="new_post" do %>
-  <div class="post-form">
-    <%= form_with model: post,
-      class: "form",
-      data: { controller: "post", action: "turbo:submit-end->post#reset_form" } do |form| %>
-      <%= form.label :content %><br />
-      <%= form.text_area :content, data: { post_target: "textBox" } %><br />
-      <%= form.label :photos %><br />
-      <%= form.file_field :photos, multiple: true, data: { post_target: "fileUpload" } %><br />
-      <%= form.submit %>
-    <% end %>
-  </div>
+  <%= form_with model: post,
+    class: "posts",
+    data: { controller: "post", action: "turbo:submit-end->post#reset_form" } do |form| %>
+    <%= form.text_area :content, data: { post_target: "textBox" }, maxlength: 250 %>
+    <%= form.label :photos, "Upload a photo:" %>
+    <%= form.file_field :photos, multiple: true, data: { post_target: "fileUpload" } %>
+    <%= form.submit id: "submit-button" %>
+  <% end %>
 <% end %>

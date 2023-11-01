@@ -2,7 +2,7 @@
 
 <%= turbo_frame_tag id="new_post", src: new_post_path %>
 
-<ul class="post-list" id="posts">
+<ul class="list" id="posts">
   <% if @posts.any? %>
     <% @posts.reverse_each do |post|%>
       <li>
