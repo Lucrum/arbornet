@@ -1,16 +1,9 @@
-<div class="comment-form">
-  <% commentable_type = commentable.class.name %>
-  <% case commentable_type %>
-  <% when "Post" %>
-    <% path = post_comments_path(commentable) %>
-  <% when "Comment" %>
-    <% path = comment_comments_path(commentable) %>
-  <% end %>
-  <%= form_with model: commentable.comments.build, url: polymorphic_path([commentable, Comment]) do |form| %>
-    <%= form.hidden_field :commentable_type, value: commentable_type %>
-    <%= form.hidden_field :commentable_id, value: commentable.id %>
-    <%= form.label :content, "Comment" %>
-    <%= form.text_area :content %>
-    <%= form.submit "Leave Comment" %>
-  <% end %>
-</div>
+<% commentable_type = commentable.class.name %>
+<%= form_with model: commentable.comments.build,
+  url: polymorphic_path([commentable, Comment]),
+  class: "comments", data: { controller: "comments", action: "turbo:submit-end->comments#reset_form" } do |form| %>
+  <%= form.hidden_field :commentable_type, value: commentable_type %>
+  <%= form.hidden_field :commentable_id, value: commentable.id %>
+  <%= form.text_area :content, data: { comments_target: "textBox" }, maxlength: 250 %>
+  <%= form.submit "Leave Comment", id: "submit-button" %>
+<% end %>
