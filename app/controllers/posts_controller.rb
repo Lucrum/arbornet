@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   # loads ALL posts, should paginate this
   def index
     total_friends = current_user.friends + current_user.inverse_friends + [current_user]
-    @posts = Post.where(creator: total_friends).includes([:creator, :likes, :photos_attachments])
+    @posts = Post.where(creator: total_friends).includes([:creator, :likes, :photos_attachments]).limit(25)
   end
 
   def new
