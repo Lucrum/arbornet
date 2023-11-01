@@ -1,4 +1,7 @@
-<p><%= link_to comment.creator.username, profile_path(comment.creator.username) %> - <%= render "shared/time_ago", item: comment %></p>
+<div class="avatar-time-stamp">
+  <%= render "profiles/avatar_small_username", user: comment.creator %>
+  <%= render "shared/time_ago", item: comment %>
+</div>
 <p><%= comment.content %></p>
 <% if comment.creator == current_user %>
   <%= link_to "Edit", edit_polymorphic_path([commentable, comment]) %>

@@ -1,15 +1,16 @@
 <h1>Users</h1>
 
 <% @profiles.each do |profile| %>
-  <div class="profile">
-    <%= render "avatar_small", user: profile %>
-    <%= link_to profile.username, profile_path(profile.username) %>
+  <div class="space-two-elements-align">
+    <%= render "avatar_small_username", user: profile %>
+
+    <% if @friendables[profile.id] %>
+      <%= link_to "Send friend request",
+      friendships_path(id: current_user, receiver: profile),
+      data: {
+        turbo_method: :post
+      } %>
+    <% end %>
   </div>
-  <% if @friendables[profile.id] %>
-    <%= link_to "Send friend request",
-    friendships_path(id: current_user, receiver: profile),
-    data: {
-      turbo_method: :post
-    } %>
-  <% end %>
+  <br />
 <% end %>

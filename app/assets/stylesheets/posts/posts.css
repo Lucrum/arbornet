@@ -1,0 +1,13 @@
+div.avatar-time-stamp {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+div.post-preview-content {
+  margin: 10px 0px;
+}
+
+p.post-preview-text {
+  margin: 1rem 0px;
+}

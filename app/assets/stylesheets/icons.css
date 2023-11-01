@@ -1,7 +1,7 @@
 img.small-circle-icon,
 img.small-icon {
-  height: 2rem;
-  width: 2rem;
+  height: var(--small-icon-dimensions);
+  width: var(--small-icon-dimensions);
 }
 
 img.small-circle-icon,
@@ -11,6 +11,6 @@ img.circle-icon {
 
 img.circle-icon {
   object-fit: cover;
-  height: 5rem;
-  width: 5rem;
+  height: var(--medium-icon-dimensions);
+  width: var(--medium-icon-dimensions);
 }

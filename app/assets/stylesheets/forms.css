@@ -17,6 +17,10 @@ form > textarea:hover {
   background-image: linear-gradient(rgb(0 0 0/5%) 0 0);
 }
 
+form > textarea:focus {
+  outline: 0;
+}
+
 form.posts > label {
   grid-row: 2 / 3;
   grid-column: 1 / 2;

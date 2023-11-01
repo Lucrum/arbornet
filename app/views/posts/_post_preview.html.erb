@@ -1,23 +1,21 @@
-<div class="post-preview">
-  
-  <%= link_to profile_path(username: post.creator.username) do %>
-    <%= render "profiles/avatar_small", user: post.creator %>
-    <%= post.creator.username %>
-  <% end %>
-  - 
+<div class="avatar-time-stamp">
+  <%= render "profiles/avatar_small_username", user: post.creator %>
   <%= render "shared/time_ago", item: post %>
-  <br>
-  <%= link_to post do %>
+</div>
+<%= link_to post, class: "post-preview" do %>
+  <div class="post-preview-content">
     <% if post.content.present? %>
-      <p class="post-preview-content"><%= post.content %></p>
+      <p class="post-preview-text"><%= post.content %></p>
     <% end %>
-
     <% if post.photos.attached? %>
       <% post.photos.each do |photo| %>
         <%= image_tag photo.variant(:medium), class: "medium-photo" %>
       <% end %>
     <% end %>
-  <% end %>
-  <br>
+  </div>
+<% end %>
+
+<div class="post-interactions">
   <%= render "likes/like_count", likable: post %>
+  <%= render "comments/comment_count", commentable: post %>
 </div>

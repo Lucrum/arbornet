@@ -1,0 +1,6 @@
+<div class="avatar-small-username">
+  <%= link_to profile_path(username: user.username), class: "avatar-link" do %>
+    <%= render "profiles/avatar_small", user: user %>
+    <%= user.username %>
+  <% end %>
+</div>

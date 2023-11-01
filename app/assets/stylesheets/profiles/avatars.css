@@ -1,0 +1,11 @@
+div.avatar-small-username {
+  display: inline-block;
+  height: var(--small-icon-dimensions);
+}
+
+a.avatar-link,
+div.avatar-medium-username {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

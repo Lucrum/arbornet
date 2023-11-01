@@ -1,5 +1,7 @@
 <div>
-  <h1><%= render "avatar", user: @profile %><%= @profile.username %></h1>
+  <div class="avatar-medium-username">
+    <%= render "avatar", user: @profile %><h1><%= @profile.username %></h1>
+  </div>
 </div>
 <% if @profile == current_user %>
   <%= link_to "Edit profile", edit_profile_path(@profile.username) %>
@@ -24,6 +26,31 @@
     } %>
 <% end %>
 
+<div class="user-friends">
+  <% if @friendships.any? %>
+    <h3><%= @profile.username %>'s friends</h3>
+    <ul>
+      <% @friendships.each do |friendship| %>
+        <li class="space-two-elements-align">
+          <% if @profile == friendship.receiver %>
+            <% friend = friendship.sender %>
+          <% else %>
+            <% friend = friendship.receiver %>
+          <% end %>
+          <%= render "avatar_small_username", user: friend %>
+
+          <% if @profile == current_user %>
+            <%= link_to "Remove friend", friendship_path(friendship), data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure you want to remove #{friend.username} as a friend?"
+            } %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
 
 
 <div class="user-posts">
@@ -38,31 +65,5 @@
     </ul>
   <% else %>
     <p>Nothing here to see... yet!</p>
-  <% end %>
-</div>
-
-<div class="user-friends">
-  <% if @friendships.any? %>
-    <h3><%= @profile.username %>'s friends</h3>
-    <ul>
-      <% @friendships.each do |friendship| %>
-        <li>
-          <% if @profile == friendship.receiver %>
-            <% friend = friendship.sender %>
-          <% else %>
-            <% friend = friendship.receiver %>
-          <% end %>
-          <%= render "avatar_small", user: friend %>
-          <%= link_to friend.username, friend.username %>
-
-          <% if @profile == current_user %>
-            <%= link_to "Remove friend", friendship_path(friendship), data: {
-              turbo_method: :delete,
-              turbo_confirm: "Are you sure you want to remove #{friend.username} as a friend?"
-            } %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
   <% end %>
 </div>
