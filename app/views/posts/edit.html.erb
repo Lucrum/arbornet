@@ -1,7 +1,10 @@
 <div>
   <h1>Edit post</h1>
-
-  <%= render "post_form", post: @post %>
+  <%# post form without photos %>
+  <%= form_with model: @post, class: "posts" do |form| %>
+    <%= form.text_area :content, data: { post_target: "textBox" }, maxlength: 250 %>
+    <%= form.submit id: "submit-button" %>
+  <% end %>
   <%= link_to "Delete post", post_path(@post), data: {
     turbo_method: :delete,
     turbo_confirm: "Are you sure you want to delete this post?"

@@ -81,6 +81,6 @@ Users
 
 - Deployment!
 
-# Known Issues
+# Limitations
 
-- Editing a post will also remove the image attached. Images are not sent to the editing form.
+- Photos may not be added or removed when editing a post.

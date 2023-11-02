@@ -41,7 +41,7 @@ class PostsController < ApplicationController
   def update
     redirect_to root_path unless @post.creator == current_user
 
-    if @post.update(post_params)
+    if @post.update(post_edit_params)
       redirect_to @post
     else
       render :edit, status: :unprocessable_entity
@@ -58,6 +58,10 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:content, photos: [])
+  end
+
+  def post_edit_params
+    params.require(:post).permit(:content)
   end
 
   def set_post
